@@ -1,0 +1,57 @@
+from django.contrib.auth.models import User
+from django.db import models
+
+
+class Quest(models.Model):
+    """ Опрос """
+
+    title = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = u'Опрос'
+        verbose_name_plural = u'Опросы'
+
+    def __str__(self):
+        return self.title
+
+
+class Choise_type(models.Model):
+    """ Тип ответа """
+
+    type = models.CharField(max_length=50)
+    label = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = u'Тип ответа'
+        verbose_name_plural = u'Типы ответов'
+
+    def __str__(self):
+        return self.label
+
+
+class Question(models.Model):
+    """ Вопрос """
+
+    question_text = models.CharField(max_length=255)
+    choise_type = models.ForeignKey(Choise_type, on_delete=models.CASCADE)
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = u'Вопрос'
+        verbose_name_plural = u'Вопросы'
+
+    def __str__(self):
+        return self.question_text
+
+class Choise(models.Model):
+    """ Вариант ответа """
+
+    choice_text = models.CharField(max_length=255)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = u'Вариант ответа'
+        verbose_name_plural = u'Варианты ответов'
+
+    def __str__(self):
+        return self.choice_text

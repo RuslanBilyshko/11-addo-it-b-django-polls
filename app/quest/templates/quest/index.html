@@ -1,0 +1,9 @@
+{% if quest_list %}
+    <ul>
+    {% for quest in quest_list %}
+        <li><a href="{% url 'quest:questions' quest.id %}">{{quest.title}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No quests are available.</p>
+{% endif %}
