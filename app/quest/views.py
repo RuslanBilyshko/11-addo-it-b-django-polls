@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.template import loader
 from django.views import generic
@@ -81,7 +82,7 @@ class IndexView(generic.ListView):
         """Return the last five published questions."""
         return Quest.objects.all()
 
-
+@csrf_exempt
 def questions(request, quest_id):
     quest = get_object_or_404(Quest, pk=quest_id)
     questions = get_list_or_404(Question, quest=quest)
@@ -96,18 +97,30 @@ def questions(request, quest_id):
         data = {
             "name": "choise-{}".format(q.id),
             "label": q.question_text,
-            "type": q.choise_type.type
+            "type": q.choise_type.type,
+            "required": 1
         }
 
         chs = []
 
-        for c in q.choises:
-            chs.append({"name": c.choice_text, "value": c.id})
+        if q.choises:
+            for c in q.choises:
+                chs.append({"name": c.choice_text, "value": c.id})
 
         data['choices'] = chs
         data_form.append(data)
 
-    form = get_form(data_form)
+    form_class = get_form(data_form)
+
+    rdata = {}
+
+    if request.method == 'POST':
+        form = form_class(request.POST)
+        if form.is_valid():
+            rdata = form.cleaned_data
+            var_dump(rdata)
+    else:
+        form = form_class()
 
     # var_dump(questions[0])
     # var_dump(data_form)
@@ -115,5 +128,5 @@ def questions(request, quest_id):
     return render(
         request=request,
         template_name="quest/questions.html",
-        context={'questions': questions, "quest": quest, "form": form}
+        context={'questions': questions, "quest": quest, "form": form, "data": rdata}
     )
