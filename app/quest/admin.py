@@ -4,6 +4,6 @@ from django.contrib import admin
 from .models import Quest, Choise_type, Choise, Question
 
 admin.site.register(Quest)
-admin.site.register(Choise_type)
+# admin.site.register(Choise_type)
 admin.site.register(Choise)
 admin.site.register(Question)

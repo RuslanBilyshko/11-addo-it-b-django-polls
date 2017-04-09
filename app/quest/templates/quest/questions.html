@@ -1,9 +1,12 @@
 {% if questions %}
-    <ul>
-    {% for question in questions %}
-        <li>{{question.question_text}}</li>
-    {% endfor %}
-    </ul>
+    <h1>{{quest.title}}</h1>
+
+    <form action="/questions/save" method="POST">
+        {{form.as_p}}
+        <input type="submit" value="Save"/>
+    </form>
+
+
 {% else %}
     <p>No questions are available.</p>
 {% endif %}
