@@ -1,7 +1,7 @@
 {% if questions %}
     <h1>{{quest.title}}</h1>
 
-    <form action="{% url 'quest:save' quest.id %}" method="POST">
+    <form action="{% url 'quest:save' quest.id %}" method="POST" novalidate>
         {{form.as_p}}
         <input type="submit" value="Save"/>
     </form>

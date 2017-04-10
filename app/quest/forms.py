@@ -1,7 +1,9 @@
 from django import forms
 
+
 class FieldHandler:
     formfields = {}
+    attrs = {'class': 'nocopy', }
 
     def __init__(self, fields):
         for field in fields:
@@ -31,7 +33,7 @@ class FieldHandler:
 
     def create_field_for_radio(self, field, options):
         options['choices'] = [(c['value'], c['name']) for c in field['choices']]
-        return forms.ChoiceField(widget=forms.RadioSelect, **options)
+        return forms.ChoiceField(widget=forms.RadioSelect(attrs=self.attrs), **options)
 
     def create_field_for_select(self, field, options):
         options['choices'] = [(c['value'], c['name']) for c in field['choices']]
@@ -40,7 +42,7 @@ class FieldHandler:
     def create_field_for_multiple_select(self, field, options):
         options['choices'] = [(c['value'], c['name']) for c in field['choices']]
         options['widget'] = forms.SelectMultiple()
-        return forms.ChoiceField(**options)
+        return forms.MultipleChoiceField(**options)
 
     def create_field_for_checkbox(self, field, options):
         return forms.BooleanField(widget=forms.CheckboxInput, **options)
@@ -49,7 +51,6 @@ class FieldHandler:
         options['choices'] = [(c['value'], c['name']) for c in field['choices']]
         options['widget'] = forms.CheckboxSelectMultiple()
         return forms.MultipleChoiceField(**options)
-
 
 
 def get_form(jstr):

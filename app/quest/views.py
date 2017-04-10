@@ -93,6 +93,8 @@ def questions(request, quest_id):
     for index, q in enumerate(questions):
         questions[index].choises = [x for x in choises if x.question_id == q.id]
 
+    var_dump(questions)
+
     for q in questions:
         data = {
             "name": "choise-{}".format(q.id),
