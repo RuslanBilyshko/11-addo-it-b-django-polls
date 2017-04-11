@@ -1,5 +1,6 @@
-
 from django.db import models
+from django.shortcuts import get_object_or_404, get_list_or_404
+from .forms import get_form
 
 
 class Quest(models.Model):
@@ -10,6 +11,7 @@ class Quest(models.Model):
     class Meta:
         verbose_name = u'Опрос'
         verbose_name_plural = u'Опросы'
+
 
     def __str__(self):
         return self.title
@@ -43,6 +45,7 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
+
 class Choise(models.Model):
     """ Вариант ответа """
 
@@ -55,3 +58,18 @@ class Choise(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+
+class Choise_result(models.Model):
+    """ Результаты опросов """
+
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choise = models.ForeignKey(Choise, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = u'Результат опроса'
+        verbose_name_plural = u'Результаты опросов'
+
+    def __str__(self):
+        return "Результаты"

@@ -13,10 +13,14 @@ class FieldHandler:
 
     def get_options(self, field):
         options = {}
-        options['label'] = field['label']
+        options['label'] = field.get("label", None)
         options['help_text'] = field.get("help_text", None)
         options['required'] = bool(field.get("required", 0))
+        options['initial'] = field.get("value", '')
         return options
+
+    def create_field_for_hidden(self, field, options):
+        return forms.CharField(widget=forms.HiddenInput(attrs={'value': field.get("value", '')}), **options)
 
     def create_field_for_text(self, field, options):
         options['max_length'] = int(field.get("max_length", "20"))
@@ -56,3 +60,9 @@ class FieldHandler:
 def get_form(jstr):
     fh = FieldHandler(jstr)
     return type('DynaForm', (forms.Form,), fh.formfields)
+
+
+
+
+
+
