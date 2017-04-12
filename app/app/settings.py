@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'home.apps.HomeConfig',
     'quest.apps.QuestConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',

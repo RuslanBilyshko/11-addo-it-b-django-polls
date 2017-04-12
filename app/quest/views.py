@@ -1,3 +1,5 @@
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404, get_object_or_404
@@ -12,69 +14,9 @@ from var_dump import var_dump
 from .models import Quest, Question, Choise, Choise_result
 from .forms import get_form
 
-DATA_FORM = [
-    {
-        "name": "firstname",
-        "label": "First Name",
-        "type": "text",
-        "max_length": 25,
-        "required": 1
-    },
-    {
-        "name": "lastname",
-        "label": "Last Name",
-        "type": "text",
-        "max_length": 25,
-        "required": 1
-    },
-    {
-        "name": "smallcv",
-        "label": "Small CV",
-        "type": "textarea",
-        "help_text": "Please insert a small CV"
-    },
-    {
-        "name": "age",
-        "label": "Age",
-        "type": "integer",
-        "max_value": 200,
-        "min_value": 0
-    },
-    {
-        "name": "marital_status",
-        "label": "Marital Status",
-        "type": "radio",
-        "choices": [
-            {"name": "Single", "value": "single"},
-            {"name": "Married", "value": "married"},
-            {"name": "Divorced", "value": "divorced"},
-            {"name": "Widower", "value": "widower"}
-        ]
-    },
-    {
-        "name": "occupation",
-        "label": "Occupation",
-        "type": "select",
-        "choices": [
-            {"name": "Farmer", "value": "farmer"},
-            {"name": "Engineer", "value": "engineer"},
-            {"name": "Teacher", "value": "teacher"},
-            {"name": "Office Clerk", "value": "office_clerk"},
-            {"name": "Merchant", "value": "merchant"},
-            {"name": "Unemployed", "value": "unemployed"},
-            {"name": "Retired", "value": "retired"},
-            {"name": "Other", "value": "other"}
-        ]
-    },
-    {
-        "name": "internet",
-        "label": "Internet Access",
-        "type": "checkbox"
-    }
-]
-
 
 # Create your views here.
+
 class IndexView(generic.ListView):
     template_name = 'quest/index.html'
     context_object_name = 'quest_list'
@@ -84,7 +26,7 @@ class IndexView(generic.ListView):
         return Quest.objects.all()
 
 
-@csrf_exempt
+
 def questions(request, quest_id):
     quest = get_object_or_404(Quest, pk=quest_id)
     questions = get_list_or_404(Question, quest=quest)
@@ -172,3 +114,5 @@ def quest_result(request, quest_id):
         template_name="quest/quest_result.html",
         context={'result': ch_result, "title": quest.title}
     )
+
+
