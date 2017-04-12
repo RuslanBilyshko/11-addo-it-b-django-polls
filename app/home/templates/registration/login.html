@@ -1,11 +1,17 @@
+{% extends "home/layout.html" %}
+
+{% include 'page_title.html' with title=quest.title %}
+
+{% block content %}
+
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>У Вас нет доступа к этой странице. <br>Чтобы продолжить,
+        войдите в систему с учетной записью, к которой есть доступ.</p>
     {% else %}
     <p>Please login to see this page.</p>
     {% endif %}
@@ -29,4 +35,6 @@
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+
+{% endblock %}

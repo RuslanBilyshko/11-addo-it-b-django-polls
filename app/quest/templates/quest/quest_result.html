@@ -1,6 +1,13 @@
-<h1>{{title}}</h1>
+{% extends "home/layout.html" %}
+
+{% include 'page_title.html' with title=title %}
+
+{% block content %}
+
 {% for choice in result %}
     <p>{{choice.question}} - {{choice.choise}}</p>
 {% endfor %}
 
 <a href="{% url 'quest:index' %}">Пройти еще</a>
+
+{% endblock %}

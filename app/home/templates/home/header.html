@@ -1,0 +1,12 @@
+<div class="logo">ОПРОСНИК</div>
+
+{% if request.user.is_authenticated %}
+<ul class="nav">
+    <li><a href="#"><b>Привет, {{request.user.username}}</b></a></li>
+    <li><a href="{% url 'logout' %}?next={% url 'home:index' %}">Выйти</a></li>
+</ul>
+{% else %}
+<ul class="nav">
+    <li><a href="{% url 'login' %}?next={% url 'quest:index' %}">Войти</a></li>
+</ul>
+{% endif %}

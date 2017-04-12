@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block meta_title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home/libraries/bootstrap/dist/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}"/>
+
 </head>
 <body>
-    <h1>{% block title %}{% endblock %}</h1>
-    {% block content %}{% endblock %}
+<div class="container">
+    <div class="row">
+        <header class="clearfix">{% include "home/header.html" %}</header>
+        <section class="content col-md-12">
+            <h1>{% block title %}{% endblock %}</h1>
+            {% block content %}{% endblock %}
+        </section>
+
+    </div>
+</div>
+
 </body>
 </html>

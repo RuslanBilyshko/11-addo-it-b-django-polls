@@ -1,0 +1,40 @@
+body {
+    background: #ececec;
+}
+
+section {
+    background: #ffffff;
+}
+
+.content {
+    padding-bottom: 50px;
+}
+
+header {
+    background: #87af77;
+    padding: 15px;
+}
+
+header a {
+    color: #fff;
+}
+
+header ul.nav {
+    float: right;
+}
+
+header ul li {
+    float: left;
+    list-style: none;
+}
+
+header .logo {
+    float: left;
+    padding: 4px;
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.errorlist {
+    color:red;
+}

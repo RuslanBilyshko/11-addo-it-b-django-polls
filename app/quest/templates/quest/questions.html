@@ -1,7 +1,6 @@
 {% extends "home/layout.html" %}
 
-{% block title %}{{quest.title}}{% endblock %}
-{% block meta_title %}{{quest.title}}{% endblock %}
+{% include 'page_title.html' with title=quest.title %}
 
 {% block content %}
 {% if questions %}
