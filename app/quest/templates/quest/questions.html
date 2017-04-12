@@ -1,7 +1,12 @@
-{% if questions %}
-    <h1>{{quest.title}}</h1>
+{% extends "home/layout.html" %}
 
+{% block title %}{{quest.title}}{% endblock %}
+{% block meta_title %}{{quest.title}}{% endblock %}
+
+{% block content %}
+{% if questions %}
     <form action="{% url 'quest:save' quest.id %}" method="POST" novalidate>
+        {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Save"/>
     </form>
@@ -10,3 +15,4 @@
 {% else %}
     <p>No questions are available.</p>
 {% endif %}
+{% endblock %}

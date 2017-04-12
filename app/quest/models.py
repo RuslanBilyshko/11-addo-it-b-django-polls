@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .forms import get_form
-
+from django.contrib.auth.models import User
 
 class Quest(models.Model):
     """ Опрос """
@@ -66,6 +66,8 @@ class Choise_result(models.Model):
     quest = models.ForeignKey(Quest, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choise = models.ForeignKey(Choise, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name = u'Результат опроса'
